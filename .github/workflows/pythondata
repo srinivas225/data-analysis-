@@ -1,0 +1,44 @@
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Sep 28 22:20:55 2019
+
+@author: srinivas
+"""
+import numpy as np
+import pandas as pd
+import os
+import matplotlib.pyplot as plt
+from pandas.plotting import scatter_matrix
+os.getcwd()              # get working dir
+os.chdir("C:\\Users\\Admin\\Desktop\\data science classes\\drive-download\\R\\Linear_Regression")
+dataframe=pd.read_csv("mediacompany.csv")
+dataframe.head()
+dataframe.describe()
+dataframe.info()
+dataframe.isnull().sum()
+dataframe['Date']=dataframe['Date'].astype('datetime64[ns]')
+dataframe['year']=dataframe['Date'].dt.year
+dataframe['month']=dataframe['Date'].dt.month
+dataframe['day']=dataframe['Date'].dt.day
+corr_matrix=dataframe.corr()
+#views vsday
+plt.scatter(y=dataframe['Views_show'],x=dataframe['day'])
+dataframe.head()
+#views VS cricket match
+plt.scatter(y=dataframe['Views_show'],x=dataframe['Cricket_match_india'])
+#df2 = dataframe(np.random.rand(10, 4), columns=['Visitors', 'visotors_ploatform', 'Cricket_match_india', 'Ad_impression'])
+dataframe1=dataframe.drop(['Date'],axis=1)
+dataframe1.plot.bar()
+corr_matrix.plot.bar()
+scatter_matrix(dataframe1, alpha=0.2)
+dataframe1.info()
+from pandas.plotting import radviz
+plt.figure()
+radviz(dataframe1,'Views_show')
+dataframe['day_of_week'] = dataframe['Date'].dt.weekday_name
+plt.scatter(y=dataframe['Views_show'],x=dataframe['day_of_week'])
+plt.scatter(y=dataframe['Views_platform'],x=dataframe['day_of_week'])
+plt.scatter(y=dataframe['Views_show'],x=dataframe['Character_A'])
+
+
